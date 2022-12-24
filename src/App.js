@@ -1,10 +1,9 @@
-import GetData from "./components/GetData";
-import UserRegister from "./components/UserRegister";
+import RouteLinks from "./routes/RouteLinks";
 
 function App() {
   return (
     <div className="App">
-      <UserRegister />
+      <RouteLinks />
     </div>
   );
 }
