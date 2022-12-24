@@ -1,9 +1,10 @@
 import GetData from "./components/GetData";
+import UserRegister from "./components/UserRegister";
 
 function App() {
   return (
     <div className="App">
-      <GetData />
+      <UserRegister />
     </div>
   );
 }
