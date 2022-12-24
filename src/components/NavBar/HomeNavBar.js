@@ -28,9 +28,11 @@ const HomeNavBar = () => {
             E-Library Source
           </Typography>
           {HomeNavBarElements.map((element) => (
-            <Button color="inherit" onClick={()=>navigate(element.path)}>
-              {element.label}
-            </Button>
+            <div key={element.key}>
+              <Button color="inherit" onClick={() => navigate(element.path)}>
+                {element.label}
+              </Button>
+            </div>
           ))}
         </Toolbar>
       </AppBar>
