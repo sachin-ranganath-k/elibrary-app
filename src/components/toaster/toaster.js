@@ -1,7 +1,11 @@
-import { toast } from "toast-notification-alert";
+import Toast from 'react-bootstrap/Toast';
 
-const Toaster = () => {
-  toast.show({ title: "Enter Name", position: "topfullwidth", type: "alert" });
-};
+function Toaster() {
+  return (
+    <>
+    <h1>Registerd......!a''gjk</h1>
+    </>
+  );
+}
 
 export default Toaster;
