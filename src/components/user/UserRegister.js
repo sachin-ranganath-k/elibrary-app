@@ -46,6 +46,7 @@ const UserRegister = () => {
   };
 
   const { userName, userEmail, userPassword } = inputFields;
+  const dataa=JSON.stringify(inputFields)
 
   const submitData = () => {
 //     for (const a of usersList) {
@@ -58,7 +59,7 @@ const UserRegister = () => {
 //       setUserExist(false);
 //     });
 
-    dispatch(submitUserRegisterData(JSON.stringify(inputFields)));
+    dispatch(submitUserRegisterData(dataa));
     resetData();
     setTimeout(() => {
       navigate("/");
