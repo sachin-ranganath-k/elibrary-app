@@ -1,18 +1,16 @@
 import {
-  passwordError,
-  userEmailFieldError,
-  userNameFieldError,
-} from "../../constants/constants";
-import {
+  FETCH_USERS,
   GET_DATA,
   SHOW_FILEDS_ERROR,
   SUBMIT_USER_REGISTER_DATA,
+  USER_REGISTER_FAILURE,
   USER_REGISTER_SUCCESS,
 } from "../actions/actionConstants";
 
 const initialState = {
   newUserData: [],
-  userRegisterSuccess: false,
+  userRegisterSuccess: "",
+  usersList: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -27,6 +25,18 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         userRegisterSuccess: action.payload,
+      };
+
+    case USER_REGISTER_FAILURE:
+      return {
+        ...state,
+        userRegisterSuccess: action.payload,
+      };
+
+    case FETCH_USERS:
+      return {
+        ...state,
+        usersList: action.payload,
       };
 
     // case SHOW_FILEDS_ERROR:

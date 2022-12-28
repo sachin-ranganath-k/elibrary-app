@@ -13,6 +13,11 @@ export const SignIn_SignUp = {
   SIGN_UP: "Sign Up",
   ENTER_NAME: "Enter Your Name",
   ENTER_EMAIL: "Enter Email ID",
+
+  REGISTER_SUCCESS_MSG:"Registered Successfully..! Redirecting to Login Page",
+  REGISTER_FAILURE_MSG:"Something went wrong..! Please try later",
+
+  REGISTER_USER_EXIST:"User already exists..!"
 };
 
 export const patterns = {

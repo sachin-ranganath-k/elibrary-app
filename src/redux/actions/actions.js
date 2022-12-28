@@ -1,39 +1,36 @@
 import {
-  GET_DATA,
+  FETCH_USERS,
   SHOW_FILEDS_ERROR,
   SUBMIT_USER_REGISTER_DATA,
+  USER_REGISTER_FAILURE,
   USER_REGISTER_SUCCESS,
 } from "./actionConstants";
 import axios from "axios";
-import { USER_REGISTER } from "../../endPoints/endPoints";
+import {FETCH_USERS_API, USER_REGISTER } from "../../endPoints/endPoints";
 
-// export const getData = () => {
-//   return async function (dispatch) {
-//     await axios
-//       .get("http://localhost:3001/apiData")
-//       .then((res) => {
-//         // console.log(res);
-//         return dispatch({
-//           type: GET_DATA,
-//           payload: res.data,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
+export const fetchUsers = () => {
+  return async function (dispatch) {
+    await axios
+      .get(`${FETCH_USERS_API}`)
+      .then((res) => {
+        dispatch({ type: FETCH_USERS, payload:res.data });
+      })
+      .catch((err) => {
+        dispatch({ type: USER_REGISTER_FAILURE, payload: "Failed" });
+      });
+  };
+};
 
 export const submitUserRegisterData = (payload) => {
-  return function (dispatch) {
-    axios
+  return async function (dispatch) {
+    await axios
       .post(`${USER_REGISTER}`, payload)
       .then((res) => {
         dispatch({ type: SUBMIT_USER_REGISTER_DATA, payload });
-        dispatch({ type: USER_REGISTER_SUCCESS, payload: true });
+        dispatch({ type: USER_REGISTER_SUCCESS, payload: "Success" });
       })
       .catch((err) => {
-        console.log(err);
+        dispatch({ type: USER_REGISTER_FAILURE, payload: "Failed" });
       });
   };
 };

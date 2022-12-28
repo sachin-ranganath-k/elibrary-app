@@ -7,31 +7,35 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import HomeNavBar from "../NavBar/HomeNavBar";
-import {
-  passwordError,
-  patterns,
-  SignIn_SignUp,
-  userEmailFieldError,
-  userNameFieldError,
-} from "../../constants/constants";
+import { SignIn_SignUp } from "../../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  showFieldsError,
+  fetchUsers,
   submitUserRegisterData,
 } from "../../redux/actions/actions";
+import HomeNavBar from "../NavBar/HomeNavBar";
+
+import AlertMessage from "../Alerts/Alert";
+import { useNavigate } from "react-router";
 
 const theme = createTheme();
 
 const UserRegister = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [inputFields, setInputFields] = useState({
     userName: "",
     userEmail: "",
     userPassword: "",
   });
+  let [userExist, setUserExist] = useState(false);
 
-  const userRegisterSuccess = useSelector((state) => state.userRegisterSuccess);
+  let userRegisterSuccess = useSelector((state) => state.userRegisterSuccess);
+  let usersList = useSelector((state) => state.usersList);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
 
   const handleFields = (e) => {
     const { name, value } = e.target;
@@ -42,10 +46,23 @@ const UserRegister = () => {
   };
 
   const { userName, userEmail, userPassword } = inputFields;
-  const a = JSON.stringify(inputFields);
 
   const submitData = () => {
-    dispatch(submitUserRegisterData(a));
+    for (const a of usersList) {
+      if (a.userEmail === userEmail) {
+        setUserExist(true);
+        return;
+      }
+    }
+    setTimeout(() => {
+      setUserExist(false);
+    });
+
+    dispatch(submitUserRegisterData(JSON.stringify(inputFields)));
+    resetData();
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
   };
 
   //   if (userName === "" || !patterns.regName.test(userName)) {
@@ -56,6 +73,12 @@ const UserRegister = () => {
   //     return false;
   //   }
   // };
+
+  const resetData = () => {
+    inputFields.userName = "";
+    inputFields.userEmail = "";
+    inputFields.userPassword = "";
+  };
   return (
     <>
       <HomeNavBar />
@@ -82,7 +105,15 @@ const UserRegister = () => {
               noValidate
               sx={{ mt: 1 }}
             >
-              {userRegisterSuccess && <h1>Registered</h1>}
+              {userRegisterSuccess === "Success"
+                ? AlertMessage("success", SignIn_SignUp.REGISTER_SUCCESS_MSG)
+                : null}
+              {userRegisterSuccess === "Failed"
+                ? AlertMessage("error", SignIn_SignUp.REGISTER_FAILURE_MSG)
+                : null}
+              {userExist
+                ? AlertMessage("error", SignIn_SignUp.REGISTER_USER_EXIST)
+                : null}
               <TextField
                 margin="normal"
                 required
