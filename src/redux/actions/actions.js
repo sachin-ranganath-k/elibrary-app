@@ -24,7 +24,7 @@ export const fetchUsers = () => {
 export const submitUserRegisterData = (payload) => {
   return async function (dispatch) {
     await axios
-      .post(`${USER_REGISTER}`, payload)
+      .get(`${USER_REGISTER}`, payload)
       .then((res) => {
         dispatch({ type: SUBMIT_USER_REGISTER_DATA, payload });
         dispatch({ type: USER_REGISTER_SUCCESS, payload: "Success" });
