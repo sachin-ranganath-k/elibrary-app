@@ -49,15 +49,15 @@ const UserRegister = () => {
   const dataa=JSON.stringify(inputFields)
 
   const submitData = () => {
-//     for (const a of usersList) {
-//       if (a.userEmail === userEmail) {
-//         setUserExist(true);
-//         return;
-//       }
-//     }
-//     setTimeout(() => {
-//       setUserExist(false);
-//     });
+for (const a of usersList) {
+if (a.userEmail === userEmail) {
+         setUserExist(true);
+         return;
+       }
+}
+setTimeout(() => {
+setUserExist(false);
+     });
 
     dispatch(submitUserRegisterData(dataa));
     resetData();
